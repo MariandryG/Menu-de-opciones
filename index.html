@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu de operaciones</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="contenedor">
+        <h1>Menu de operaciones</h1>
+        <select name="menu" id="menu" onchange="mostrarFormulario()">
+            <option value="">-- Selecciona una opcion--</option>
+            <option value="1" id="1">1. Resolver funcion cuadratica</option>
+            <option value="2" id="2">2. Calcular edad</option>
+            <option value="3" id="3">3. Promedio de compras</option>
+        </select>
+            <!-- Formulario 1 -->
+            <form id="formulario1" class="formulario" onsubmit="resolverCuadratica(); return false;">
+            <h2>funcion cuadradica</h2>
+                <input type="number" id="a" placeholder="A" required min="0" step="0.01">
+                <input type="number" id="b" placeholder="B" required min="0" step="0.01">
+                <input type="number" id="c" placeholder="C" required min="0" step="0.01">
+                <button type="submit">Resolver</button>
+            </form>
+            <!-- Formulario 2 -->
+            <form id="formulario2" class="formulario" onsubmit="calcularEdad(); return false;">
+            <h2>Calcular edad</h2>
+                <input type="date" id="anioNacimiento" placeholder="Año de nacimiento" required  min="1900-01-01" max="2025-12-31">
+                <button type="submit">Calcular</button>
+            </form>
+            <!-- Formulario 3 -->
+            <form id="formulario3" class="formulario" onsubmit="pedirCompras(); return false;">
+                <h2>Promdio de compras</h2>
+                <input type="number" id="cantidadCompras" placeholder="Cantidad de compras" required min="1">
+                <button type="submit">Siguiente</button>
+                <div id="comprasContainer"></div>
+            </form>
+            <div id="resultado" class="resultados"></div>
+            <button onclick="reiniciar()" style="display: none;" id="reiniciar">¿Hacer otra operación?</button>
+        <script src="./codigo.js"></script>
+    </div>
+    <div></div>
+</body>
+</html>
