@@ -25,20 +25,24 @@ function resolverCuadratica(){
     let resultado = "";
 
     if (discriminante > 0) {
-        const x1 = (-b + Math.sqrt(discriminante)) / (2 * a);
-        const x2 = (-b - Math.sqrt(discriminante)) / (2 * a);
-        resultado = `Soluciones reales: x₁ = ${x1}, x₂ = ${x2}`;
-        } 
-        else if (discriminante === 0) {
+            let x1 = (-b + Math.sqrt(discriminante)) / (2 * a);
+            let x2 = (-b - Math.sqrt(discriminante)) / (2 * a);
+
+            // Ordenar las soluciones
+            if (x1 > x2) [x1, x2] = [x2, x1];
+
+            resultado = `Soluciones reales: x₁ = ${x1}, x₂ = ${x2}`;
+        } else if (discriminante === 0) {
             const x = -b / (2 * a);
             resultado = `Una solución real: x = ${x}`;
-        } 
-        else {
+        } else {
             resultado = "No tiene soluciones reales.";
         }
 
     mostrarResultado(resultado);
 }
+
+
 
 function calcularEdad() {
     const anio = parseInt(document.getElementById('anioNacimiento').value);
@@ -48,40 +52,48 @@ function calcularEdad() {
     }
 
     function pedirCompras() {
-        const cantidad = parseInt(document.getElementById('cantidadCompras').value);
-        const contenedor = document.getElementById('comprasContainer');
-        contenedor.innerHTML = ''; // Limpiar compras previas
-        for (let i = 0; i < cantidad; i++) {
-            contenedor.innerHTML += `<input type="number" min="0" step="0.01" placeholder="Compra ${i + 1}" class="compra">`;
-        }
-        contenedor.innerHTML += `<button onclick="calcularPromedio()">Calcular Promedio</button>`;
-        }
+    const cantidad = parseInt(document.getElementById('cantidadCompras').value);
+    const contenedor = document.getElementById('comprasContainer');
+    contenedor.innerHTML = ''; // Limpiar compras previas
 
-    function calcularPromedio() {
-        const compras = document.querySelectorAll('.compra');
-        let suma = 0;
-        let vacios = false;
-        compras.forEach(c => {
-            if (c.value === "") {
-                vacios = true;
-            } else {
-                suma += parseFloat(c.value);
-            }
-        });
-    
-        if (vacios) {
-            mostrarResultado("Por favor, completa todos los campos de compra.");
-            return;
-        }
-        const promedio = suma / compras.length;
-        mostrarResultado(`El promedio de tus compras es: $${promedio.toFixed(2)}`)
+    for (let i = 0; i < cantidad; i++) {
+        contenedor.innerHTML += `<input type="number" min="0" step="0.01" placeholder="Compra ${i + 1}" class="compra"><br>`;
     }
-        function mostrarResultado(texto) {
-            document.getElementById('resultado').innerText = texto;
-            document.getElementById('reiniciar').style.display = 'inline-block';
+
+    contenedor.innerHTML += `<button onclick="calcularPromedio()">Calcular Promedio</button>`;
+}
+
+function calcularPromedio() {
+    const compras = document.querySelectorAll('.compra');
+    let suma = 0;
+    let vacios = false;
+
+    compras.forEach(c => {
+        if (c.value === "") {
+            vacios = true;
+        } else {
+            suma += parseFloat(c.value);
         }
-        function reiniciar() {
-            document.getElementById('menu').value = "";
-            mostrarFormulario(); // Oculta todos los formularios
-            }
+    });
+
+    if (vacios) {
+        mostrarResultado("Por favor, completa todos los campos de compra.");
+        return;
+    }
+
+    const promedio = suma / compras.length;
+    mostrarResultado(`💰 Total de compras: $${suma.toFixed(2)}<br>📊 Promedio por compra: $${promedio.toFixed(2)}`);
+}
+
+function mostrarResultado(texto) {
+    document.getElementById('resultado').innerHTML = texto;
+    document.getElementById('reiniciar').style.display = 'inline-block';
+}
+
+function reiniciar() {
+    document.getElementById('cantidadCompras').value = "";
+    document.getElementById('comprasContainer').innerHTML = "";
+    document.getElementById('resultado').innerHTML = "";
+    document.getElementById('reiniciar').style.display = 'none';
+}
 
