@@ -5,8 +5,8 @@
 /* Estilo base */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
+    background-color: #000000;
+    margin: auto;
     padding: 0;
     display: flex;
     justify-content: center;
@@ -16,12 +16,13 @@ body {
 
 /* Contenedor del formulario */
 #contenedor {
-    background-color: #fff;
+    background-color: #e0e0e0;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
+    max-width: 300px;
+    
 }
 
 /* Títulos */
@@ -31,19 +32,26 @@ h1, h2 {
 }
 
 /* Estilo para el select y los inputs */
-select,
+
 input {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
 }
-
+select {
+    width: 96%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
 /* Botón de acción */
 button {
-    width: 100%;
+    width: 96%;
     padding: 10px;
     background-color: #4CAF50;
     color: white;
@@ -51,6 +59,8 @@ button {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    
+
 }
 
 button:hover {

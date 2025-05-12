@@ -45,22 +45,35 @@ function resolverCuadratica(){
 
 
 function calcularEdad() {
-    const anio = parseInt(document.getElementById('anioNacimiento').value);
+    const fechaInput = document.getElementById('anioNacimiento').value;
+
+    if (!fechaInput) {
+        mostrarResultado("Por favor ingresa tu fecha de nacimiento.");
+        return;
+    }
+
+    const anio = new Date(fechaInput).getFullYear();
+
+      // Easter egg para años absurdamente antiguos
+    if (anio === 1431) {
+        const mensaje = `😲 ¿Naciste en el año ${anio}? ¡Alucar! ¿Eres tu? 🧛‍♂️`;
+        mostrarResultado(mensaje);
+        document.body.style.backgroundColor = "#8B0000";
+
+        // Después de 2 segundos, limpiar mensaje y restaurar fondo
+        setTimeout(() => {
+            document.getElementById('resultado').innerHTML = "";
+            document.body.style.backgroundColor = "";
+        }, 2000);
+
+        return;
+    }
+
+
     const hoy = new Date();
     const edad = hoy.getFullYear() - anio;
+
     mostrarResultado(`Tu edad es: ${edad} años`);
-    }
-
-    function pedirCompras() {
-    const cantidad = parseInt(document.getElementById('cantidadCompras').value);
-    const contenedor = document.getElementById('comprasContainer');
-    contenedor.innerHTML = ''; // Limpiar compras previas
-
-    for (let i = 0; i < cantidad; i++) {
-        contenedor.innerHTML += `<input type="number" min="0" step="0.01" placeholder="Compra ${i + 1}" class="compra"><br>`;
-    }
-
-    contenedor.innerHTML += `<button onclick="calcularPromedio()">Calcular Promedio</button>`;
 }
 
 function calcularPromedio() {
@@ -91,9 +104,17 @@ function mostrarResultado(texto) {
 }
 
 function reiniciar() {
-    document.getElementById('cantidadCompras').value = "";
+    // Limpiar valores de inputs
+    document.querySelectorAll('input').forEach(input => input.value = '');
+
+    // Ocultar todos los formularios
+    document.querySelectorAll('.formulario').forEach(f => f.style.display = 'none');
+
+    // Limpiar contenedores y resultados
     document.getElementById('comprasContainer').innerHTML = "";
     document.getElementById('resultado').innerHTML = "";
     document.getElementById('reiniciar').style.display = 'none';
-}
 
+    // Reiniciar el menú a la opción por defecto (vacía o "selecciona una opción")
+    document.getElementById('menu').value = "";
+}
