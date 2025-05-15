@@ -76,6 +76,35 @@ function calcularEdad() {
     mostrarResultado(`Tu edad es: ${edad} años`);
 }
 
+function pedirCompras() {
+    const cantidad = parseInt(document.getElementById('cantidadCompras').value);
+    const container = document.getElementById('comprasContainer');
+
+    // Limpiar contenido anterior si lo hay
+    container.innerHTML = '';
+
+    if (isNaN(cantidad) || cantidad <= 0) {
+        mostrarResultado("Por favor, ingresa una cantidad válida de compras.");
+        return;
+    }
+
+    for (let i = 0; i < cantidad; i++) {
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.placeholder = `Compra ${i + 1}`;
+        input.classList.add('compra');
+        input.step = '0.01';
+        input.required = true;
+        container.appendChild(input);
+    }
+
+    // Botón para calcular el promedio
+    const boton = document.createElement('button');
+    boton.textContent = 'Calcular promedio';
+    boton.onclick = calcularPromedio;
+    container.appendChild(boton);
+}
+
 function calcularPromedio() {
     const compras = document.querySelectorAll('.compra');
     let suma = 0;
