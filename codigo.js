@@ -20,6 +20,21 @@ function resolverCuadratica(){
     const b = parseFloat(document.getElementById('b').value);
     const c = parseFloat(document.getElementById('c').value);
 
+    if (a === 0 && b === 0) {
+        if (c === 0) {
+            mostrarResultado("Indeterminación: la ecuación tiene infinitas soluciones, pero no es una cuadrática válida.");
+        } else {
+            mostrarResultado("La ecuación no tiene solución.");
+        }
+        return;
+    }
+
+    if (a === 0) {
+        const x = -c / b;
+        mostrarResultado(`Ecuación lineal detectada. Solución: x = ${x}`);
+        return;
+    }
+
     const discriminante = b * b - 4 *a * c;
 
     let resultado = "";
@@ -49,14 +64,14 @@ function calcularEdad() {
 
     if (!fechaInput) {
         mostrarResultado("Por favor ingresa tu fecha de nacimiento.");
-        return;
+        
     }
 
     const anio = new Date(fechaInput).getFullYear();
 
       // Easter egg para años absurdamente antiguos
     if (anio === 1431) {
-        const mensaje = `😲 ¿Naciste en el año ${anio}? ¡Alucar! ¿Eres tu? 🧛‍♂️`;
+        const mensaje = `😲 ¿Naciste en el año ${anio}? ¡Alucard! ¿Eres tu? 🧛‍♂️`;
         mostrarResultado(mensaje);
         document.body.style.backgroundColor = "#8B0000";
 
@@ -66,12 +81,23 @@ function calcularEdad() {
             document.body.style.backgroundColor = "";
         }, 2000);
 
-        return;
+        
     }
 
 
+    const nacimiento = new Date(fechaInput);
     const hoy = new Date();
-    const edad = hoy.getFullYear() - anio;
+
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    const mesActual = hoy.getMonth();
+    const mesNacimiento = nacimiento.getMonth();
+    
+        if (
+        mesActual < mesNacimiento || 
+        (mesActual === mesNacimiento && hoy.getDate() < nacimiento.getDate())
+    ) {
+        edad--;
+    }
 
     mostrarResultado(`Tu edad es: ${edad} años`);
 }
